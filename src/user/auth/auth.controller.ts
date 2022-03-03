@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Param,
+  ParseEnumPipe,
   Post,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -22,7 +23,7 @@ export class AuthController {
   @Post('signup/:userType')
   async signup(
     @Body() body: AuthSignup,
-    @Param('userType') userType: UserType,
+    @Param('userType', new ParseEnumPipe(UserType)) userType: UserType,
   ) {
     if (userType !== UserType.BUYER) {
       if (!body.productKey) {
