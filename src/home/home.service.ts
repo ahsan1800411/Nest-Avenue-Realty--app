@@ -159,7 +159,7 @@ export class HomeService {
 
   async deleteHomeById(id: number) {
     await this.prismaService.image.deleteMany({
-      where: { id },
+      where: { home_id: id },
     });
 
     await this.prismaService.home.delete({
