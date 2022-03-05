@@ -2,6 +2,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   ParseEnumPipe,
   Post,
@@ -15,6 +16,8 @@ import {
 } from '../dtos/auth.dto';
 import { AuthService } from './auth.service';
 import * as bcrypt from 'bcryptjs';
+import { User } from '../decorators/user.decoratos';
+import { UserInfo } from '../decorators/user.decoratos';
 
 @Controller('auth')
 export class AuthController {
@@ -50,5 +53,10 @@ export class AuthController {
   @Post('key')
   generateProductKey(@Body() { email, userType }: GenerateProductKeyDto) {
     return this.authService.generateProductKey(email, userType);
+  }
+
+  @Get('me')
+  me(@User() user: UserInfo) {
+    return user;
   }
 }
